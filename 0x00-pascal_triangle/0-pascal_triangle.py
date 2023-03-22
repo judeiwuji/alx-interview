@@ -4,6 +4,7 @@
 
 def pascal_triangle(n):
     """computes pascal triangle
+
     Args:
       n: int
     """
