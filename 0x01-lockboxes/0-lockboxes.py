@@ -17,7 +17,7 @@ def canUnlockAll(boxes):
         for key in box:
             if key < len(boxes):
                 door = unlocked.get(key, None)
-                if door == None:
+                if door is None:
                     unlocked[key] = key
                     unlockCount += 1
     # print(unlocked)
