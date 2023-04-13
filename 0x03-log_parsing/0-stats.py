@@ -2,6 +2,8 @@
 """Module: Log statistics"""
 import fileinput
 import re
+import signal
+import sys
 db = {}
 pattern = r"^(\d+(\.\d+){3})\s\-\s(\[\d+(\-\d+){2}\s\d+(\:\d+\.?(\d+)?)" +\
     r"{2}\])\s(\"GET \/projects\/260 HTTP\/1.1\")" +\
@@ -15,6 +17,13 @@ def print_stats():
     for key, value in sorted(db.items()):
         print("{}: {:d}".format(key, value))
 
+
+def sigint_handler(signal, frame):
+    print_stats()
+    sys.exit(0)
+
+
+signal.signal(signal.SIGINT, sigint_handler)
 
 if __name__ == "__main__":
     try:
@@ -38,5 +47,4 @@ if __name__ == "__main__":
                     print_stats()
                     count = 1
     except KeyboardInterrupt as e:
-        print_stats()
-        raise e
+        pass
