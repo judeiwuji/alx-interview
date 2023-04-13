@@ -1,9 +1,8 @@
 #!/usr/bin/python3
 """Module: Log statistics"""
-import fileinput
 import re
-import signal
 import sys
+import traceback
 db = {}
 pattern = r"^(\d+(\.\d+){3})\s\-\s(\[\d+(\-\d+){2}\s\d+(\:\d+\.?(\d+)?)" +\
     r"{2}\])\s(\"GET \/projects\/260 HTTP\/1.1\")" +\
@@ -18,16 +17,9 @@ def print_stats():
         print("{}: {:d}".format(key, value))
 
 
-def sigint_handler(signal, frame):
-    print_stats()
-    sys.exit(0)
-
-
-signal.signal(signal.SIGINT, sigint_handler)
-
 if __name__ == "__main__":
     try:
-        for line in fileinput.input():
+        for line in sys.stdin:
             count += 1
             log = line.rstrip()
             matches = re.findall(pattern, log)
@@ -46,5 +38,6 @@ if __name__ == "__main__":
                 if count >= 10:
                     print_stats()
                     count = 0
-    except KeyboardInterrupt as e:
-        pass
+    except KeyboardInterrupt:
+        print_stats()
+        traceback.print_exc()
