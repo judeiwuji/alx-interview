@@ -21,7 +21,7 @@ if __name__ == "__main__":
         for line in fileinput.input():
             count += 1
             log = line.rstrip()
-            matches = re.findall(pattern, line)
+            matches = re.findall(pattern, log)
 
             if matches is not None and len(matches) > 0:
                 matches = list(matches[0])
@@ -34,7 +34,7 @@ if __name__ == "__main__":
                 db[status] += 1
                 file_size += int(size)
 
-                if count == 10:
+                if count >= 10:
                     print_stats()
                     count = 0
     except KeyboardInterrupt as e:
