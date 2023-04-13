@@ -7,7 +7,7 @@ import sys
 db = {}
 pattern = r"^(\d+(\.\d+){3})\s\-\s(\[\d+(\-\d+){2}\s\d+(\:\d+\.?(\d+)?)" +\
     r"{2}\])\s(\"GET \/projects\/260 HTTP\/1.1\")" +\
-    r"\s(200|301|400|401|403|404|405)\s(\d+)$"
+    r"\s(200|301|400|401|403|404|405|500)\s(\d+)$"
 file_size = 0
 count = 0
 
@@ -45,6 +45,6 @@ if __name__ == "__main__":
 
                 if count >= 10:
                     print_stats()
-                    count = 1
+                    count = 0
     except KeyboardInterrupt as e:
         pass
