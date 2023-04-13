@@ -37,7 +37,6 @@ if __name__ == "__main__":
                 if count >= 10:
                     print_stats()
                     count = 1
-            print(count)
     except KeyboardInterrupt as e:
         print_stats()
         raise e
