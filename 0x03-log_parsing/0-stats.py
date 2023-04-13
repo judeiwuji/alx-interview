@@ -17,22 +17,26 @@ def print_stats():
 
 
 if __name__ == "__main__":
-    for line in fileinput.input():
-        count += 1
-        log = line.rstrip()
-        matches = re.findall(pattern, line)
+    try:
+        for line in fileinput.input():
+            count += 1
+            log = line.rstrip()
+            matches = re.findall(pattern, line)
 
-        if matches is not None and len(matches) > 0:
-            matches = list(matches[0])
-            ip = matches[0]
-            status = matches[-2]
-            size = matches[-1]
+            if matches is not None and len(matches) > 0:
+                matches = list(matches[0])
+                ip = matches[0]
+                status = matches[-2]
+                size = matches[-1]
 
-            if db.get(status) is None:
-                db[status] = 0
-            db[status] += 1
-            file_size += int(size)
+                if db.get(status) is None:
+                    db[status] = 0
+                db[status] += 1
+                file_size += int(size)
 
-            if count == 10:
-                print_stats()
-                count = 0
+                if count == 10:
+                    print_stats()
+                    count = 0
+    except KeyboardInterrupt as e:
+        print_stats()
+        raise e
