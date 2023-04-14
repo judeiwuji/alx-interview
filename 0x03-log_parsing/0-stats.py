@@ -4,7 +4,7 @@ import re
 import sys
 import traceback
 db = {}
-pattern = r"^(\d+(\.\d+){3})\s\-\s(\[\d+(\-\d+){2}\s\d+(\:\d+\.?(\d+)?)" +\
+pattern = r"^((\d+(\.\d+){3})|\w+?)\s?\-\s?(\[\d+(\-\d+){2}\s\d+(\:\d+\.?(\d+)?)" +\
     r"{2}\])\s(\"GET \/projects\/260 HTTP\/1.1\")" +\
     r"\s(\w+)\s(\d+)$"
 statusCodes = [200, 301, 400, 401, 403, 404, 405, 500]
@@ -24,10 +24,10 @@ if __name__ == "__main__":
             count += 1
             log = line.rstrip()
             matches = re.findall(pattern, log)
+            size = 0
 
             if matches is not None and len(matches) > 0:
                 matches = list(matches[0])
-                ip = matches[0]
                 try:
                     status = int(matches[-2])
                     size = int(matches[-1])
@@ -36,7 +36,7 @@ if __name__ == "__main__":
                         if db.get(status) is None:
                             db[status] = 0
                         db[status] += 1
-                except TypeError:
+                except ValueError:
                     pass
                 total_size += int(size)
 
