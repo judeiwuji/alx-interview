@@ -36,9 +36,9 @@ if __name__ == "__main__":
                         if db.get(status) is None:
                             db[status] = 0
                         db[status] += 1
-                    total_size += int(size)
                 except TypeError:
                     pass
+                total_size += int(size)
 
             if count == 10:
                 print_stats()
