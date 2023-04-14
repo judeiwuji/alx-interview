@@ -45,6 +45,7 @@ if __name__ == "__main__":
                 print_stats()
                 count = 0
     except KeyboardInterrupt:
-        sys.stderr.flush()
+        print_stats()
         traceback.print_exc()
-    print_stats()
+    else:
+        print_stats()
