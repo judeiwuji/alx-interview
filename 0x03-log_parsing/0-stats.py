@@ -29,9 +29,9 @@ if __name__ == "__main__":
 
             if matches is not None and len(matches) > 0:
                 matches = list(matches[0])
+                size = int(matches[-1])
                 try:
                     status = int(matches[-2])
-                    size = int(matches[-1])
 
                     if status in statusCodes:
                         if db.get(status) is None:
