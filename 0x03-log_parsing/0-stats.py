@@ -6,7 +6,8 @@ import traceback
 db = {}
 pattern = r"^(\d+(\.\d+){3})\s\-\s(\[\d+(\-\d+){2}\s\d+(\:\d+\.?(\d+)?)" +\
     r"{2}\])\s(\"GET \/projects\/260 HTTP\/1.1\")" +\
-    r"\s(200|301|400|401|403|404|405|500)\s(\d+)$"
+    r"\s(\w+)\s(\d+)$"
+statusCodes = [200, 301, 400, 401, 403, 404, 405, 500]
 total_size = 0
 count = 0
 
@@ -27,18 +28,22 @@ if __name__ == "__main__":
             if matches is not None and len(matches) > 0:
                 matches = list(matches[0])
                 ip = matches[0]
-                status = matches[-2]
-                size = matches[-1]
+                try:
+                    status = int(matches[-2])
+                    size = int(matches[-1])
 
-                if db.get(status) is None:
-                    db[status] = 0
-                db[status] += 1
-                total_size += int(size)
+                    if status in statusCodes:
+                        if db.get(status) is None:
+                            db[status] = 0
+                        db[status] += 1
+                    total_size += int(size)
+                except TypeError:
+                    pass
 
             if count == 10:
                 print_stats()
                 count = 0
     except KeyboardInterrupt:
-        print_stats()
         sys.stderr.flush()
         traceback.print_exc()
+    print_stats()
