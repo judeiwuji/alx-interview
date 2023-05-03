@@ -1,8 +1,8 @@
 #!/usr/bin/node
-const request = require("request");
+const request = require('request');
 const movieID = process.argv[2];
 
-function requestPromise(url) {
+const requestPromise = (url) => {
   return new Promise((resolve, reject) => {
     request.get(url, {}, (error, response) => {
       if (error) {
@@ -10,15 +10,15 @@ function requestPromise(url) {
       }
 
       if (response.statusCode !== 200) {
-        return reject(null);
+        return reject(new Error(response.statusMessage));
       }
 
       resolve(JSON.parse(response.body));
     });
   });
-}
+};
 
-async function main() {
+const main = async () => {
   if (movieID) {
     const film = await requestPromise(
       `https://swapi-api.alx-tools.com/api/films/${movieID}`
@@ -31,6 +31,6 @@ async function main() {
       }
     }
   }
-}
+};
 
 main().then(() => {});
