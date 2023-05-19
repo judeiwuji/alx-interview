@@ -10,6 +10,8 @@ def makeChange(coins, total):
      coins: list(int)
      total: int
     """
+    if total <= 0:
+        return 0
     d = coins[:]
     totalChange = 0
     count = 0
