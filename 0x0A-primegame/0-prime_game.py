@@ -28,6 +28,9 @@ def getNextPlayer(player):
 
 def getWinner(players):
     """Returns: the name of the game winner"""
+    if players[0]['wins'] == players[1]['wins']:
+        return None
+
     return players[0]['name'] if players[0]['wins'] >\
         players[1]['wins'] else players[1]['name']
 
