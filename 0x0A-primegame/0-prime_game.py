@@ -8,7 +8,7 @@ def isPrime(d):
         return True
     if d % 2 == 0 or d % 3 == 0:
         return False
-    for n in range(2, int(pow(d, 0.5))):
+    for n in range(2, int(d ** 0.5)):
         if d % n == 0:
             return False
     return True
