@@ -68,8 +68,7 @@ def isWinner(x, nums):
                 break
             pick = primes[0]
             multiples = getMultiples(pick, game)
-            for b in multiples:
-                board.remove(b)
+            board = list(set(board).difference(multiples))
             players[player]['wins'] += 1
             player = getNextPlayer(player)
         round += 1
