@@ -65,14 +65,12 @@ def isWinner(x, nums):
         while len(board) > 0:
             primes = [d for d in board if isPrime(d)]
             if len(primes) == 0:
-                round += 1
                 player = getNextPlayer(player)
                 players[player]['wins'] += 1
                 break
             pick = primes[0]
             multiples = getMultiples(pick, game)
             board = list(set(board).difference(multiples))
-            players[player]['wins'] += 1
             player = getNextPlayer(player)
         round += 1
     return getWinner(players)
