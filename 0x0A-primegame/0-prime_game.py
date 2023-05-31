@@ -1,4 +1,6 @@
 #!/usr/bin/python3
+"""Module: Prime Game"""
+
 
 def isPrime(d):
     """Checks primality of a number"""
