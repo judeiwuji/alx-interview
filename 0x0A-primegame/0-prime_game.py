@@ -44,6 +44,8 @@ def isWinner(x, nums):
 
     Returns: A boolean
     """
+    if x > len(nums):
+        return None
     player = 0
     players = {
         0: {
